@@ -16,4 +16,4 @@ class User(models.Model):
                             ),
                         ],
                     )
-    deal_count      = models.IntegerField(auto_created=0)
+    deal_count      = models.IntegerField(auto_created=0) # 거래횟수
