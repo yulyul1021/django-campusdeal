@@ -1,0 +1,54 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <title>CampusDeal</title>
+      <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <style>
+      /* 검색창 */
+    .search-section {
+      background-color: #007bff; /* 파란색 배경 */
+      padding: 100px;
+      color: white; /* 흰 글씨 */
+      text-align: center;
+    }
+    .search-input {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .search-section h2 {
+      font-size: 50px; /* 흰 글씨 크기 */
+      margin-bottom: 20px;
+    }
+
+    /* Custom Styles */
+    .product-card {
+      margin-bottom: 20px;
+    }
+    .product-card .card-img-top {
+      height: 200px; /* Set the height of product images */
+      object-fit: cover; /* Cover the container with the image */
+    }
+  </style>
+</head>
+<body>
+<!-- 네비게이션바 -->
+{% include "navbar.html" %}
+<!-- 기본 템플릿 안에 삽입될 내용 Start -->
+{% block content %}
+{% endblock %}
+<!-- 기본 템플릿 안에 삽입될 내용 End -->
+<!-- Bootstrap JS -->
+<script src="{% static 'bootstrap.min.js' %}"></script>
+<!-- 자바스크립트 Start -->
+{% block script %}
+{% endblock %}
+<!-- 자바스크립트 End -->
+</body>
+</html>

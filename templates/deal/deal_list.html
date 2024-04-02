@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- 검색창(배경 추가 예정) -->
+  <div class="search-section">
+    <h2>Campus Deal</h2>
+    <div class="input-group search-input">
+      <input type="text" class="form-control" placeholder="상품을 검색하세요...">
+      <div class="input-group-append">
+        <button class="btn btn-light" type="button"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+  </div>
+<!-- 검색창 끝 -->
+
+<!-- 물품(딜) 리스트 -->
+<!-- 이미 판매된 물품과 그렇지 않은 물품 구별하기 -->
+  <div class="container mt-4">
+    <div class="row">
+      <!-- Product Card 1 -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="card product-card">
+          <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
+          <div class="card-body">
+            <h5 class="card-title">상품 제목 1</h5>
+            <p class="card-text">
+              <span class="badge bg-primary">태그1</span>
+              <span class="badge bg-secondary">태그2</span>
+            </p>
+            <p class="card-text">₩10,000</p>
+            <a href="#" class="btn btn-primary">구매하기</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card 2 -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="card product-card">
+          <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
+          <div class="card-body">
+            <h5 class="card-title">상품 제목 2</h5>
+            <p class="card-text">
+              <span class="badge bg-primary">태그1</span>
+              <span class="badge bg-secondary">태그2</span>
+            </p>
+            <p class="card-text">₩10,000</p>
+            <a href="#" class="btn btn-primary">구매하기</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card 3 -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="card product-card">
+          <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
+          <div class="card-body">
+            <h5 class="card-title">상품 제목 3</h5>
+            <p class="card-text">
+              <span class="badge bg-primary">태그1</span>
+              <span class="badge bg-secondary">태그2</span>
+            </p>
+            <p class="card-text">₩10,000</p>
+            <a href="#" class="btn btn-primary">구매하기</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- 더보기 버튼 -->
+<div style="text-align:center;">
+  <a href="{% url 'deal:deal_list_detail'%}" type=button class="btn btn-primary" style="display: inline-block;">더보기</a>
+</div>
+
+{% endblock %}
