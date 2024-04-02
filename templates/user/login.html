@@ -7,7 +7,7 @@
         <div class="card card-signin my-5">
           <div class="card-body">
             <h5 class="card-title text-center text-primary">CampusDeal</h5>
-            <form class="form-signin" method="post" action="{% url 'user:custom_login' %}">
+            <form class="form-signin" method="post" action="{% url 'user:login' %}">
               {% csrf_token %}
               {% include "form_errors.html" %}
               <div class="form-label-group">
