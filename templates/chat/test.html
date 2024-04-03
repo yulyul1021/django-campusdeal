@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Chat Room</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'chat.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-5 col-xl-3 border-right">
+                <div class="chat-list">
+                    <h1 class="h3 mb-3">Messages</h1>
+                    <!-- Chat List -->
+                    <div id="chat-list" class="list-group">
+                        <!-- Chat list items will be appended here -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-7 col-xl-9">
+                <div class="chat-room">
+                    <h1 class="h3 mb-3" id="chat-room-name">Chat Room: </h1>
+                    <!-- Chat Messages -->
+                    <div class="chat-messages p-4" id="chat-messages">
+                        <!-- Chat messages will be appended here -->
+                    </div>
+                    <!-- Chat Input -->
+                    <div class="input-group py-3 px-4 border-top">
+                        <input type="text" class="form-control" id="chat-message-input" placeholder="Type your message">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" id="chat-message-submit">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WebSocket Connection and JavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        const chatSocket = new WebSocket(`ws://${window.location.host}/ws/chat/${roomName}/`);
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            appendMessage(data);
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        // Send message when submit button is clicked or Enter key is pressed
+        document.querySelector('#chat-message-submit').addEventListener("click",(e) => {
+            sendMessage();
+        };
+
+        document.querySelector('#chat-message-input').addEventListener("keyup",(e) => {
+            if (e.key === "Enter") {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const messageInputDom = document.querySelector('#chat-message-input');
+            const message = messageInputDom.value;
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+            messageInputDom.value = '';
+        }
+
+        // Append new message to chat messages div
+        function appendMessage(data) {
+            const chatMessages = document.querySelector('#chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message');
+            if (data.sender === 'You') {
+                messageDiv.classList.add('chat-message-right');
+            } else {
+                messageDiv.classList.add('chat-message-left');
+            }
+            messageDiv.innerHTML = `
+                <div>
+                    <img src="${data.avatar}" class="rounded-circle mr-1" alt="${data.sender}" width="40" height="40">
+                    <div class="text-muted small text-nowrap mt-2">${data.time}</div>
+                </div>
+                <div class="flex-shrink-1 bg-light rounded py-2 px-3 ${data.sender === 'You' ? 'mr-3' : 'ml-3'}">
+                    <div class="font-weight-bold mb-1">${data.sender}</div>
+                    ${data.message}
+                </div>
+            `;
+            chatMessages.appendChild(messageDiv);
+            // Scroll to bottom of chat messages
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    });
+</script>
+</body>
+</html>
