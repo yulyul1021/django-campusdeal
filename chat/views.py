@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import *
 
 
-def CreateRoom(request):
+def create_room(request):
     if request.method == 'POST':
         username = request.POST['username']
         room = request.POST['room']
@@ -18,7 +18,7 @@ def CreateRoom(request):
     return render(request, 'chat/home.html')
 
 
-def MessageView(request, room_name, username):
+def message_view(request, room_name, username):
     get_room = Room.objects.get(room_name=room_name)
 
     if request.method == 'POST':

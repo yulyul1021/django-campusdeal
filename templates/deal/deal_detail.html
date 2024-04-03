@@ -1,10 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
+    <!-- message 표시 -->
+    {% if messages %}
+    <div class = "alert alert-danger my-3" role="alert">
+        {% for message in messages %}
+            <strong>{{ message.tags }}</strong>
+            <ul><li>{{ message.message }}</li></ul>
+        {% endfor %}
+    </div>
+    {% endif %}
 
-</body>
-</html>
+<!-- 내용 -->
+<article id="content" deal_id={{ deal_id }}>
+    <!-- 사진 -->
+
+    <!-- 상품 -->
+    <div style = "border:1px">
+        <!--제목 가격 -->
+        <section id="article-description">
+            <div class="border-bottom py-3" style="width:1000px;height:200px;">
+                <p id="article-title" property="schema:name" style="font-size:40px; font-weight:bold;">{{deal.subject }}</p>
+                <p id="article-price" property="schema:price" style="font-size:25px; font-weight:bold;">{{ deal.price }}원</p>
+                <div style="float:left;">
+                    <div style="float:left;">
+                        <a href="#" class="btn btn-primary" style="margin-right:5px">찜</a>
+                        <a href="#" class="btn btn-primary" style="margin-right:5px">구매하기</a>
+                    </div>
+                    <!-- 수정삭제버튼 -->
+                    <div class="my-3" style="float:left;">
+                    <a href ="{% url 'deal:deal_edit' deal.id %}"
+                       class="btn btn-primary">수정</a>
+                    <a href ="javascript:void(0)" class="delete btn btn-primary"
+                       data-uri = "{% url 'deal:deal_delete' deal.id %}">삭제</a>
+            </div>
+                </div>
+            </div>
+
+        </section>
+        <!-- 본문 -->
+        <section id="article-detail">
+            <p>{{ deal.content }}</p>
+
+            <!-- 수정삭제버튼 -->
+            <div class="my-3">
+            <a href ="{% url 'deal:deal_edit' deal.id %}"
+                 class="btn btn-sm btn-outline-secondary">수정</a>
+             <a href ="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
+                data-uri = "{% url 'deal:deal_delete' deal.id %}">삭제</a>
+            </div>
+
+        </section>
+
+    </div>
+
+</article>
+{% endblock %}
+</boby>
+{% block script %}
+<script type = 'text/javascript'>
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+</script>
+{% endblock %}

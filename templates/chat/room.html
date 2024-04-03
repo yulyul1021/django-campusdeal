@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -111,14 +111,14 @@
 
 
     .parent {
-      background-color: #B1A296;
+      // background-color: #B1A296;
     }
 
     nav {
         display: flex;
         justify-content: space-around;
         align-items: center;
-        background-color: #659DBD;
+        // background-color: #659DBD;
         padding: 10px;
     }
 
@@ -129,7 +129,7 @@
     }
 
     nav ul li:hover {
-        background-color: dodgerblue;
+        // background-color: dodgerblue;
         color: #fff;
         transition: 0.8s;
     }
@@ -192,7 +192,7 @@
     }
 
     .chat-room h3 {
-        background-color: gray;
+        // background-color: gray;
         padding: 10px;
         border-radius: 5px;
         text-decoration: none;
@@ -210,7 +210,7 @@
         margin: 10px;
         border-radius: 10px;
         padding: 10px;
-        background-color: #FBEEC1;
+        // background-color: #FBEEC1;
     }
 
     .chat-body-parent {
@@ -223,7 +223,7 @@
     .chat-body, .message {
         /* max-height: 100vh; */
         width: 100%;
-        background-color: #557A95;
+        // background-color: #557A95;
         border-radius: 10px;
         display: flex;
         padding: 10px;
@@ -236,7 +236,7 @@
     }
 
     .chat-body .message .receive, .send {
-        background-color: #B1A296;
+        // background-color: #B1A296;
         max-width: 400px;
 
         border-radius: 10px;
@@ -278,7 +278,7 @@
     form button {
         width: 25%;
         padding: 10px;
-        background-color: #FBEEC1;
+        // background-color: #FBEEC1;
         border-radius: 5px;
         border: none;
         color: #000;
@@ -290,4 +290,4 @@
 }
 
 </style>
-</html>
+{% endblock %}

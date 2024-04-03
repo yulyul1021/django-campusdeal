@@ -150,3 +150,12 @@ CHANNEL_LAYERS = {
         "BACKEND": "channels.layers.InMemoryChannelLayer"
    }
 }
+
+# 로그인 성공 후 이동하는 URL
+LOGIN_REDIRECT_URL = '/'
+
+# 로그아웃 성공 시 자동으로 이동할 URL
+LOGOUT_REDIRECT_URL = '/'
+
+# User Model 새로 정의
+AUTH_USER_MODEL = 'user.User'
