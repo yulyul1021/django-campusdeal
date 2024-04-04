@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404,redirect
 from django.utils import timezone
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from .models import Deal
 from .forms import DealForm
 
@@ -24,11 +25,13 @@ def detail(request,deal_id):
     return render(request,'deal/deal_detail.html',context)
 
 # 글쓰기, 수정, 삭제
+@login_required(login_url='common:login')
 def deal_create(request):
     if request.method == 'POST':
         form = DealForm(request.POST)
         if form.is_valid():
             deal = form.save(commit=False)
+            deal.author = request.user
             deal.create_date = timezone.now()
             deal.is_complete = False
             deal.save()
@@ -38,6 +41,7 @@ def deal_create(request):
     context = {'form':form}
     return render(request, 'deal/deal_form.html',context)
 
+@login_required(login_url='common:login')
 def deal_edit(request,deal_id):
     deal = get_object_or_404(Deal,pk=deal_id)
     if request.user != deal.author:
@@ -46,7 +50,7 @@ def deal_edit(request,deal_id):
     if request.method == "POST":
         form = DealForm(request.POST, instance=deal)
         if form.is_valid():
-            deal = form.save(commint=False)
+            deal = form.save(commit=False)
             deal.modify_date = timezone.now()
             deal.save()
             return redirect('deal:deal_detail',deal_id=deal.id)
@@ -55,6 +59,7 @@ def deal_edit(request,deal_id):
     context = {'form':form}
     return render(request,'deal/deal_form.html',context)
 
+@login_required(login_url='common:login')
 def deal_delete(request, deal_id):
     deal = get_object_or_404(Deal, pk=deal_id)
     if request.user != deal.author:
@@ -62,5 +67,3 @@ def deal_delete(request, deal_id):
         return redirect('deal:deal_detail',deal_id=deal.id)
     deal.delete()
     return redirect('deal:index')
-
-

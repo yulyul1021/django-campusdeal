@@ -24,13 +24,16 @@ SECRET_KEY = 'django-insecure-q&)sj)2$xnfb)=6%0*$7zr30%iv54&k7%qd_uo+x+897b2j-2@
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+ALLOWED_HOSTS = ['*']
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    'channels',
+    'chat.apps.ChatConfig',
     'deal.apps.DealConfig',
     'user.apps.UserConfig',
     'django.contrib.admin',
@@ -69,7 +72,11 @@ TEMPLATES = [
     },
 ]
 
+
+
 WSGI_APPLICATION = 'config.wsgi.application'
+
+ASGI_APPLICATION = 'config.asgi.application'
 
 
 # Database
@@ -129,3 +136,27 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/images/'
 MEDIA_ROOT = BASE_DIR / 'images'
+
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": [('127.0.0.1', 6379)],
+#         },
+#     },
+# }
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+   }
+}
+
+# 로그인 성공 후 이동하는 URL
+LOGIN_REDIRECT_URL = '/'
+
+# 로그아웃 성공 시 자동으로 이동할 URL
+LOGOUT_REDIRECT_URL = '/'
+
+# User Model 새로 정의
+AUTH_USER_MODEL = 'user.User'
