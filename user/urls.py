@@ -9,4 +9,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('signup/', views.signup, name='signup'),
     path('', include('deal.urls'), name='index'),
+    path('myinfo/', views.myinfo, name='myinfo'),
+    path('edit/', views.edit, name='edit'),
+    path('password/', views.edit_pw, name='edit_pw'),
 ]

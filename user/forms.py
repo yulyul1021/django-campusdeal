@@ -1,6 +1,7 @@
 from django import forms
 from .models import User
-
+from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth import get_user_model
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(label='비밀번호', widget=forms.PasswordInput)
@@ -26,3 +27,7 @@ class UserForm(forms.ModelForm):
 
         return cd['re_password']
 
+class UpdateForm(UserChangeForm):
+    class Meta:
+        model = get_user_model()
+        fields = ["username", "nickname", "email", "phone_number"]

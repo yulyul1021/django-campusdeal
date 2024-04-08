@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>회원 정보 수정</h1>
+    <form action="{% url 'user:edit' %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <a href="{% url 'user:edit_pw' %}" class="btn btn-primary">비밀번호 변경</a>
+        <input type="submit" value="수정하기">
+    </form>
+{% endblock content %}
+

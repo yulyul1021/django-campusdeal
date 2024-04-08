@@ -1,6 +1,7 @@
 from django import forms
 from deal.models import Deal
 
+
 class DealForm(forms.ModelForm):
     class Meta:
         model = Deal
@@ -15,3 +16,4 @@ class DealForm(forms.ModelForm):
             'price':'가격',
             'content':'설명'
         }
+

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2>회원 정보</h2>
+    <div class="row">
+        <div class="col-md-4">
+            {% if user.icon %}
+                <img src="{{ user.icon.url }}" alt="프로필 이미지">
+            {% else %}
+                <p>프로필 이미지가 없습니다.</p>
+            {% endif %}
+        </div>
+
+        </div>
+        <div class="col-md-8">
+            <h3>{{ user.nickname }}</h3>
+            <p>Email: {{ user.email }}</p>
+            <h4>작성한 글 목록 (총 {{ user.deal_count }}개)</h4>
+            <ul>
+                {% for question in user.question_set.all %}
+                <li><a href="{% url 'deal:deal_detail' deal.id %}">{{ question.subject }}</a></li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+    <div class="row justify-content-end">
+        <div class="col-md-8">
+            <a href="{% url 'user:edit' %}" class="btn btn-primary">수정</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

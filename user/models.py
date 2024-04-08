@@ -18,6 +18,7 @@ class User(AbstractUser):
                         ],
                     )
     deal_count      = models.IntegerField(default=0) # 거래횟수
+    password = models.CharField(max_length=100)
 
     def __str__(self):
         return self.username
