@@ -22,8 +22,9 @@
                       <!-- received messages and displayed here -->
                         {% for i in messages %}
                             {% if i.sender != user %}
+                                <strong>{{i.sender}}</strong>
                                 <div class="receive">
-                                    <p style="color: #000;"> {{i.message}}<strong>-{{i.sender}}</strong></p>
+                                    <p style="color: #000;"> {{i.message}}</p>
                                 </div>
                             {% else %}
                                 <div class="send">
@@ -84,7 +85,7 @@
         // Here's where we append the message to the chatbox.
         var messageDiv = document.querySelector('.message');
         if (sender != '{{user}}') { // assuming you have a variable `currentUser` to hold the current user's name
-            messageDiv.innerHTML += '<div class="receive"><p style="color: #000;">' + message + '<strong>-' + sender + '</strong></p></div>';
+            messageDiv.innerHTML += '<strong>' + sender + '</strong>' + '<div class="receive"><p style="color: #000;">' + message + '</p></div>';
         } else {
             messageDiv.innerHTML += '<div class="send"><p style="color: #000;">' + message + '</p></div>';
         }
@@ -111,14 +112,14 @@
 
 
     .parent {
-      // background-color: #B1A296;
+      // background-color: gray;
     }
 
     nav {
         display: flex;
         justify-content: space-around;
         align-items: center;
-        // background-color: #659DBD;
+        background-color: gray;
         padding: 10px;
     }
 
@@ -236,7 +237,7 @@
     }
 
     .chat-body .message .receive, .send {
-        // background-color: #B1A296;
+        background-color: lightgrey;
         max-width: 400px;
 
         border-radius: 10px;

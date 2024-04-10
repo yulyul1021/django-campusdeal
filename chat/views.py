@@ -4,17 +4,17 @@ from .models import *
 
 def create_room(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        room = request.POST['room']
+        username = request.user.username
+        room = 'UN2atUrbYvZA7oe7pIgh'
 
         try:
             get_room = Room.objects.get(room_name=room)
-            return redirect('room', room_name=room, username=username)
+            return redirect('chatapp:room', room_name=room, username=username)
 
         except Room.DoesNotExist:
             new_room = Room(room_name=room)
             new_room.save()
-            return redirect('room', room_name=room, username=username)
+            return redirect('chatapp:room', room_name=room, username=username)
     return render(request, 'chat/home.html')
 
 
