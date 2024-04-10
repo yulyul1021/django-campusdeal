@@ -22,8 +22,9 @@
                       <!-- received messages and displayed here -->
                         {% for i in messages %}
                             {% if i.sender != user %}
+                                <strong>{{i.sender}}</strong>
                                 <div class="receive">
-                                    <p style="color: #000;"> {{i.message}}<strong>-{{i.sender}}</strong></p>
+                                    <p style="color: #000;"> {{i.message}}</p>
                                 </div>
                             {% else %}
                                 <div class="send">
@@ -37,7 +38,7 @@
                     <div class="form">
                         <form action="" id="message-form" method="POST">
                             {% csrf_token %}
-                            <textarea id="msg" cols="30" name="message" rows="10" placeholder="Enter your message" required></textarea>
+                            <textarea id="msg" cols="30" name="message" rows="10" placeholder="메세지를 입력하세요" required></textarea>
                             <button class="submit" type="submit">Send</button>
                         </form>
                     </div>
@@ -84,7 +85,7 @@
         // Here's where we append the message to the chatbox.
         var messageDiv = document.querySelector('.message');
         if (sender != '{{user}}') { // assuming you have a variable `currentUser` to hold the current user's name
-            messageDiv.innerHTML += '<div class="receive"><p style="color: #000;">' + message + '<strong>-' + sender + '</strong></p></div>';
+            messageDiv.innerHTML += ''<strong>-' + sender + '</strong><div class="receive"><p style="color: #000;">' + message + </p></div>';
         } else {
             messageDiv.innerHTML += '<div class="send"><p style="color: #000;">' + message + '</p></div>';
         }
@@ -110,15 +111,10 @@
     }
 
 
-    .parent {
-      // background-color: #B1A296;
-    }
-
     nav {
         display: flex;
         justify-content: space-around;
         align-items: center;
-        // background-color: #659DBD;
         padding: 10px;
     }
 
@@ -129,7 +125,6 @@
     }
 
     nav ul li:hover {
-        // background-color: dodgerblue;
         color: #fff;
         transition: 0.8s;
     }
@@ -143,7 +138,6 @@
         height: 100vh;
         display: flex;
         justify-content: center;
-        /* background-image: url("/static/img/bck.jpg");  */
 
         background-position: center;
         background-repeat: no-repeat;
@@ -192,7 +186,6 @@
     }
 
     .chat-room h3 {
-        // background-color: gray;
         padding: 10px;
         border-radius: 5px;
         text-decoration: none;
@@ -223,7 +216,6 @@
     .chat-body, .message {
         /* max-height: 100vh; */
         width: 100%;
-        // background-color: #557A95;
         border-radius: 10px;
         display: flex;
         padding: 10px;
@@ -231,7 +223,7 @@
     }
 
     .message {
-        max-height: 400px;  /* Or whatever height value you see fit */
+        max-height: 400px;
         overflow-y: auto;
     }
 
@@ -278,7 +270,6 @@
     form button {
         width: 25%;
         padding: 10px;
-        // background-color: #FBEEC1;
         border-radius: 5px;
         border: none;
         color: #000;

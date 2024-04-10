@@ -1,8 +1,8 @@
 from django.db import models
 from django.utils import timezone
+from user.models import User
 
 
-# 유저 -> / 채팅방 / -> 메세지 일케 1:n으로 이으면 될듯..?
 class Room(models.Model):
     room_name = models.CharField(max_length=255)    # pk만 있어도 될듯?
 

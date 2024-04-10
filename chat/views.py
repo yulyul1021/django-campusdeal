@@ -1,11 +1,19 @@
+import random
+import string
+
 from django.shortcuts import render, redirect
 from .models import *
 
 
+def generate_random_string(length=14):
+    return ''.join(random.choices(string.ascii_lowercase + string.digits, k=length))
+
+
 def create_room(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        room = request.POST['room']
+        username = request.user.nickname # 나
+        # room = request.POST['room'] # 채팅방 이름(나 + 상대닉네임 사전순으로 배열 + 합쳐서 해싱)
+        room = 'uaBSvqKvdVYQsa'
 
         try:
             get_room = Room.objects.get(room_name=room)
@@ -15,7 +23,7 @@ def create_room(request):
             new_room = Room(room_name=room)
             new_room.save()
             return redirect('room', room_name=room, username=username)
-    return render(request, 'chat/home.html')
+    return render(request, 'chat/room.html')
 
 
 def message_view(request, room_name, username):
@@ -23,8 +31,6 @@ def message_view(request, room_name, username):
 
     if request.method == 'POST':
         message = request.POST['message']
-
-        print(message)
 
         new_message = Message(room=get_room, sender=username, message=message)
         new_message.save()
