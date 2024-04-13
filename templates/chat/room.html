@@ -19,7 +19,7 @@
             <div class="chat-body-parent">
                 <div class="chat-body" id="tasks">
                     <div class="message" id="chatContainer">
-                      <!-- received messages and displayed here -->
+                      <!-- received messages 시작 -->
                         {% for i in messages %}
                             {% if i.sender != user %}
                                 <strong>{{i.sender}}</strong>
@@ -32,14 +32,14 @@
                                 </div>
                             {% endif %}
                         {% endfor %}
-                    <!-- end receive messages -->
+                    <!-- receive messages 끝-->
                     </div>
 
                     <div class="form">
                         <form action="" id="message-form" method="POST">
                             {% csrf_token %}
-                            <textarea id="msg" cols="30" name="message" rows="10" placeholder="메세지를 입력하세요" required></textarea>
-                            <button class="submit" type="submit">Send</button>
+                            <textarea id="msg" cols="30" name="message" rows="10" placeholder="메세지를 입력하세요." required></textarea>
+                            <button class="submit" type="submit">전송</button>
                         </form>
                     </div>
                 </div>
@@ -78,19 +78,18 @@
         var message = messageData['message'];
 
         // empty message input field after message has been sent
-        if (sender == {{user}}){
+        if (sender == '{{user}}'){
             document.getElementById('msg').value = '';
         }
 
         // Here's where we append the message to the chatbox.
         var messageDiv = document.querySelector('.message');
         if (sender != '{{user}}') { // assuming you have a variable `currentUser` to hold the current user's name
-            messageDiv.innerHTML += ''<strong>-' + sender + '</strong><div class="receive"><p style="color: #000;">' + message + </p></div>';
+            messageDiv.innerHTML += '<strong>' + sender + '</strong><div class="receive"><p style="color: #000;">' + message + '</p></div>';
         } else {
             messageDiv.innerHTML += '<div class="send"><p style="color: #000;">' + message + '</p></div>';
         }
         scrollToBottom();
-
     });
 
     socket.onopen = (event) => {
@@ -228,7 +227,7 @@
     }
 
     .chat-body .message .receive, .send {
-        // background-color: #B1A296;
+        background-color: lightgray;
         max-width: 400px;
 
         border-radius: 10px;
