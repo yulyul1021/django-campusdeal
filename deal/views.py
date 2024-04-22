@@ -25,15 +25,19 @@ def detail(request,deal_id):
     return render(request,'deal/deal_detail.html',context)
 
 # 글쓰기, 수정, 삭제
-@login_required(login_url='common:login')
+@login_required(login_url='user:login')
 def deal_create(request):
     if request.method == 'POST':
-        form = DealForm(request.POST)
+        form = DealForm(request.POST, request.FILES)
         if form.is_valid():
             deal = form.save(commit=False)
             deal.author = request.user
             deal.create_date = timezone.now()
             deal.is_complete = False
+            try:
+                deal.image = request.FILES['image']
+            except:
+                deal.image = None
             deal.save()
             return redirect('deal:index')
     else:
@@ -41,7 +45,7 @@ def deal_create(request):
     context = {'form':form}
     return render(request, 'deal/deal_form.html',context)
 
-@login_required(login_url='common:login')
+@login_required(login_url='user:login')
 def deal_edit(request,deal_id):
     deal = get_object_or_404(Deal,pk=deal_id)
     if request.user != deal.author:
@@ -59,7 +63,7 @@ def deal_edit(request,deal_id):
     context = {'form':form}
     return render(request,'deal/deal_form.html',context)
 
-@login_required(login_url='common:login')
+@login_required(login_url='user:login')
 def deal_delete(request, deal_id):
     deal = get_object_or_404(Deal, pk=deal_id)
     if request.user != deal.author:

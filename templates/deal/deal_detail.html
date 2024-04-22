@@ -13,7 +13,15 @@
 <!-- 내용 -->
 <article id="content" deal_id={{ deal_id }}>
     <!-- 사진 -->
-
+    <div>
+    {% if deal.image %}
+        <div class="container border col-10">
+            <div style="width:10%; height:150px; float:left; margin-right:10px;">
+                <img src="{{ deal.image.url }}" width="700">
+            </div>
+        </div>
+    {% endif %}
+    </div>
     <!-- 상품 -->
     <div style = "border:1px">
         <!--제목 가격 -->
@@ -38,8 +46,7 @@
 
         </section>
         <!-- 본문 -->
-        <section id="article-detail">
-            <p>{{ deal.content }}</p>
+        <section id="article-detail">            <p>{{ deal.content }}</p>
 
             <!-- 수정삭제버튼 -->
             <div class="my-3">

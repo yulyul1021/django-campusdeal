@@ -4,7 +4,12 @@
     <div class ="row mt-5">
         <div class="col-sm-11 col-md-9 col-lg-7 mx-auto">
                 <h1 class="my-3 border-bottom pb-2">상품등록</h1>
-                <form method="post">
+                <form method="post" class="post-form my-3" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="image">제품사진 : </label>
+                        <input type="file" class="form-control" name="image" id="image">
+                    </div>
+
                     {% csrf_token %}
                     {{ form.as_p }}
                     <button type="submit" class="btn btn-primary">저장하기</button>

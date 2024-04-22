@@ -14,46 +14,31 @@
 
 <!-- 물품(딜) 리스트 -->
 <!-- 이미 판매된 물품과 그렇지 않은 물품 구별하기 -->
-  <div class="container mt-4">
+<div class="container mt-4">
+  <h2>둘러보기</h2>
+    {% if deal_list %}
     <div class="row">
-      <!-- Product Card 1 -->
-      <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="card product-card">
-          <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
-          <div class="card-body">
-            <h5 class="card-title">상품 제목 1</h5>
-            <p class="card-text">₩10,000</p>
-          </div>
-        </div>
-      </div>
+      {% for deal in deal_list %}
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card product-card">
+              <div class="embed-responsive embed-responsive-4by3">
+                {% if deal.image %}
+                <img class="card-img-top" alt="Product Image" src="{{ deal.image.url }}" width="100">
+                {% else%}
+                <img class="card-img-top" alt="Product Image" src="images/default/thumbnail.png" width="100">
+                {% endif %}
+              </div>
 
-      <!-- Product Card 2 -->
-      <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="card product-card">
-          <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
-          <div class="card-body">
-            <h5 class="card-title">상품 제목 2</h5>
-            <p class="card-text">₩10,000</p>
-          </div>
-        </div>
-      </div>
+              <div class="card-body">
+                <h5 class="card-title">{{ deal.subject }}</h5>
+                <p class="card-text">₩{{ deal.price }}</p>
+                <a class="btn btn-outline-dark" href="/deal/{{ deal.id }}/">구입하기</a>
+              </div>
 
-      <!-- Product Card 3 -->
-      <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="card product-card">
-          <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
-          <div class="card-body">
-            <h5 class="card-title">상품 제목 3</h5>
-            <p class="card-text">₩10,000</p>
-          </div>
+            </div>
         </div>
-      </div>
+      {% endfor %}
     </div>
-  </div>
-
-<!-- 더보기 버튼 -->
-<div style="text-align:center;">
-  <a href="{% url 'deal:deal_list_detail'%}" type=button class="btn btn-primary" style="display: inline-block;">더보기</a>
+  {% endif %}
 </div>
-
 {% endblock %}
