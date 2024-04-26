@@ -18,7 +18,7 @@
             <center><h2>Chats</h2></center><hr>
             <div class="chat-body-parent">
                 <div class="chat-body" id="tasks">
-                    <div class="message" id="chatContainer">
+                    <div class="message" id="chatContainer" data-room-name="{{ room_name }}">>
                       <!-- received messages 시작 -->
                         {% for i in messages %}
                             {% if i.sender != user %}
@@ -54,7 +54,10 @@
     }
 
     const websocketProtocol = window.location.protocol === "https:" ? "wss" : "ws";
-    const wsEndpoint = `${websocketProtocol}://${window.location.host}/ws/notification/{{room_name}}/`;
+    const chatContainer = document.getElementById("chatContainer");
+    const roomName = chatContainer.dataset.roomName;
+    const wsEndpoint = `${websocketProtocol}://${window.location.host}/ws/notification/${roomName}/`;
+    // const wsEndpoint = `${websocketProtocol}://${window.location.host}/ws/notification/{{room_name}}/`;
     const socket = new WebSocket(wsEndpoint);
 
     document.getElementById('message-form').addEventListener('submit', function(event){

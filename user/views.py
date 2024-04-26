@@ -1,5 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
+
+from deal.models import Deal
 from .forms import UserForm
 from .models import User
 
@@ -19,3 +21,12 @@ def signup(request):
     else:
         form = UserForm()
     return render(request, 'user/signup.html', {'form': form})
+
+
+def info(request):
+    deals = Deal.objects.filter(author=request.user)
+    context = {
+        'user': request.user,
+        'deals': deals
+    }
+    return render(request, 'user/information.html', context)
