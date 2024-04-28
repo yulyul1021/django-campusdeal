@@ -13,12 +13,12 @@ class User(AbstractUser):
                         validators=[
                             RegexValidator(
                                 regex=r'^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})',
-                                message="010-1234-5678 형식이어야 합니다."
+                                message="01012345678 형식이어야 합니다."
                             ),
                         ],
                     )
-    email = models.EmailField(unique=True, blank=False)
-    is_certified = models.BooleanField(default=False)
+    email           = models.EmailField(unique=True, blank=False)
+    is_certified    = models.BooleanField(default=False)
     deal_count      = models.IntegerField(default=0) # 거래횟수
 
     def __str__(self):

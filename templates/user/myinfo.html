@@ -21,7 +21,7 @@
                             {% if user.is_certified %}
                             <p>이메일 인증 완료</p>
                             {% else %}
-                            <button onclick="location.href='{% url 'user:send_verification_email' %}'">이메일 인증</button>
+                            <button type="button" class="btn btn-primary" onclick="location.href='{% url 'user:send_verification_email' %}'">이메일 인증</button>
                             {% endif %}
                             <p class="card-text">거래 횟수: {{ user.deal_count }}</p>
                         </div>

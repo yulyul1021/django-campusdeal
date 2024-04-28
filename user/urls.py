@@ -9,9 +9,9 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='user/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('signup/', views.signup, name='signup'),
-    path('myinfo/', views.info, name='myinfo'),
+    path('myinfo/', views.myinfo, name='myinfo'),
+    path('<int:pk>/', views.user_info, name='user_info'),
     path('', include('deal.urls'), name='index'),
-
     path('send-email/', send_verification_email, name='send_verification_email'),
     path('activate/<uidb64>/<token>/', activate_user, name='activate_user'),
 ]

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ user.username }}님의 정보</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            {% if user.icon %}
+                                <img src="{{ user.icon.url }}" alt="프로필 사진" class="img-fluid rounded-circle mb-3">
+                            {% else %}
+                                <div class="text-secondary">프로필 사진이 없습니다.</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8">
+                            <h4 class="card-title">{{ user.nickname }}</h4>
+                            {% if user.is_certified %}
+                            <p>이메일 인증 완료</p>
+                            {% endif %}
+                            <p class="card-text">거래 횟수: {{ user.deal_count }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 해당 유저가 작성한 글 -->
+            <div class="container mt-4">
+                <p class="text-left my-4">작성글</p>
+                <div class="row">
+                    <!-- Product Cards -->
+                    {% for deal in deals %}
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card product-card">
+                            <img src="{{ deal.image_url }}" class="card-img-top" alt="Product Image">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ deal.title }}</h5>
+                                <p class="card-text">₩{{ deal.price }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <!--해당 유저가 작성한 글 끝-->
+        </div>
+    </div>
+</div>
+{% endblock %}

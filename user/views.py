@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from deal.models import Deal
 from .forms import UserForm
@@ -24,18 +24,27 @@ def signup(request):
     return render(request, 'user/signup.html', {'form': form})
 
 
-def info(request):
+def myinfo(request):
     deals = Deal.objects.filter(author=request.user)
     context = {
         'user': request.user,
         'deals': deals
     }
-    return render(request, 'user/information.html', context)
+    return render(request, 'user/myinfo.html', context)
+
+
+def user_info(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    deals = Deal.objects.filter(author=user)
+    context = {
+        'user': user,
+        'deals': deals
+    }
+    return render(request, 'user/user_info.html', context)
 
 
 #이메일 인증
 from django.shortcuts import render, redirect
-from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
