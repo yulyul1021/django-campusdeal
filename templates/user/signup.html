@@ -32,8 +32,13 @@
                 </div>
                 <div class="mb-3">
                     <label for="phone_number"></label>
-                    <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="010-1234-5678"
+                    <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="01012345678"
                            value="{{ form.phone_number.value|default_if_none:'' }}">
+                </div>
+                <div class="mb-3">
+                    <label for="email"></label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="이메일"
+                           value="{{ form.email.value|default_if_none:'' }}">
                 </div>
                 <hr>
                 <button type="submit" class="btn btn-primary text-uppercase btn-block" style="width: 100%;">가입하기</button>

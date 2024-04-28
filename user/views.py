@@ -11,6 +11,7 @@ def signup(request):
         if form.is_valid():
             # 사용자를 직접 저장하고, 패스워드를 해싱하여 저장
             user = form.save(commit=False)
+            user.is_active = False
             user.set_password(request.POST["password"])
             user.deal_count = 0
             user.save()

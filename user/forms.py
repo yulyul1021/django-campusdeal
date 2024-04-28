@@ -14,7 +14,8 @@ class UserForm(forms.ModelForm):
             're_password': '비밀번호 확인',
             'nickname': '닉네임',
             'username': '학번',
-            'phone_number': '휴대폰 번호'
+            'phone_number': '휴대폰 번호',
+            'email': '이메일'
         }
 
     def clean_re_password(self):
