@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activation Invalid</title>
+</head>
+<body>
+    <h1>계정 활성화 실패</h1>
+    <p>계정 활성화에 실패하였습니다. 링크가 만료되었거나 유효하지 않습니다.</p>
+    <a href="{% url 'user:send_verification_email' %}">인증 메일 재발송</a>
+</body>
+</html>

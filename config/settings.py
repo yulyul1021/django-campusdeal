@@ -159,3 +159,12 @@ LOGOUT_REDIRECT_URL = '/'
 
 # User Model 새로 정의
 AUTH_USER_MODEL = 'user.User'
+
+#메일 인증용 설정
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'yulyul102102@gmail.com'
+EMAIL_HOST_PASSWORD = 'vsnc vbkd dxlp njfr'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

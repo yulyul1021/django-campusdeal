@@ -18,6 +18,7 @@ class User(AbstractUser):
                         ],
                     )
     email = models.EmailField(unique=True, blank=False)
+    is_certified = models.BooleanField(default=False)
     deal_count      = models.IntegerField(default=0) # 거래횟수
 
     def __str__(self):

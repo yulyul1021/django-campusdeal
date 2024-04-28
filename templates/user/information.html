@@ -18,6 +18,11 @@
                             <h4 class="card-title">{{ user.nickname }}</h4>
                             <p class="card-text">전화번호: {{ user.phone_number }}</p>
                             <p class="card-text">이메일: {{ user.email }}</p>
+                            {% if user.is_certified %}
+                            <p>이메일 인증 완료</p>
+                            {% else %}
+                            <button onclick="location.href='{% url 'user:send_verification_email' %}'">이메일 인증</button>
+                            {% endif %}
                             <p class="card-text">거래 횟수: {{ user.deal_count }}</p>
                         </div>
                     </div>
