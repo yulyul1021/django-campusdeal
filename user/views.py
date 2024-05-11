@@ -30,3 +30,4 @@ def info(request):
         'deals': deals
     }
     return render(request, 'user/information.html', context)
+

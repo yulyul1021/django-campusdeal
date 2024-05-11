@@ -6,10 +6,46 @@ from django.contrib.auth.decorators import login_required
 from .models import Deal
 from .forms import DealForm
 
+from django.core.paginator import Paginator
+from django.db.models import Q, Case, When, Value, IntegerField
 
-def index(request):
-    deal_list = Deal.objects.order_by('-create_date')
-    context = {'deal_list':deal_list}
+# 검색 기능
+def index(request): 
+    page = request.GET.get('page', '1')  # 페이지
+    search = request.GET.get('search', '')  # 검색어
+    sort = request.GET.get('sort', 'recent') # 정렬기준.
+
+    if sort =='old':
+        deal_list = Deal.objects.order_by('create_date')
+    elif sort == 'min_price':
+        deal_list = Deal.objects.order_by('price')
+    elif sort == 'max_price':
+        deal_list = Deal.objects.order_by('-price')
+    elif sort == 'f_complete':            
+        deal_list = Deal.objects.order_by('is_complete', '-create_date') 
+    elif sort == 't_image':
+        deal_list = Deal.objects.annotate(
+            has_image=Case(
+                When(image='', then=Value(0)),
+                default=Value(1),
+                output_field=IntegerField()
+            )
+        ).order_by('-has_image', '-create_date')
+
+    else :
+        deal_list = Deal.objects.order_by('-create_date')
+    
+    if search:
+        deal_list = deal_list.filter(
+            Q(subject__contains=search) |  
+            Q(content__contains=search) |  
+            Q(author__username__contains=search)
+        ).distinct()
+    
+    paginator = Paginator(deal_list, 8)  # 페이지당 8개씩 보여줌.
+    page_obj = paginator.get_page(page)
+    
+    context = {'deal_list':page_obj, 'page': page, 'search': search, 'sort' : sort}
     return render(request, 'deal/deal_list.html',context)
 
 # deal 목록 페이지
@@ -71,3 +107,5 @@ def deal_delete(request, deal_id):
         return redirect('deal:deal_detail',deal_id=deal.id)
     deal.delete()
     return redirect('deal:index')
+
+
