@@ -3,8 +3,6 @@ from . import views
 
 app_name = 'deal'
 
-app_name = 'deal'
-
 urlpatterns = [
     path('', views.index,name='index'),
     path('deal/<int:deal_id>/', views.detail,name='deal_detail'),
