@@ -8,8 +8,11 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <!-- (로그인중이 아닐시)회원가입 로그인 / (로그인 중일시)로그아웃 버튼만 보이게-->
           {% if user.is_authenticated %} <!--로그인 되어있을 때-->
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'user:logout' %}">로그아웃</a>
+          <li class="nav-item" >
+            <form class="nav-link" method="post" action="{% url 'user:logout' %} ">
+              {% csrf_token %}
+              <button style="border: none; background-color: #F8F9FA; color: #000000A6;" type="submit">로그아웃</button>
+            </form>
           </li>
           {% else %}
           <li class="nav-item">
