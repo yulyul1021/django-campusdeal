@@ -32,7 +32,11 @@
               <div class="card-body">
                 <h5 class="card-title">{{ deal.subject }}</h5>
                 <p class="card-text">₩{{ deal.price }}</p>
-                <a class="btn btn-outline-dark" href="/deal/{{ deal.id }}/">구입하기</a>
+                {% if deal.is_complete %}
+                  <a class="btn btn-outline-dark" href="/deal/{{ deal.id }}/">거래완료</a>
+                {% else %}
+                  <a class="btn btn-outline-dark" href="/deal/{{ deal.id }}/">구입하기</a>
+                {% endif %}
               </div>
 
             </div>

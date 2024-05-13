@@ -71,3 +71,16 @@ def deal_delete(request, deal_id):
         return redirect('deal:deal_detail',deal_id=deal.id)
     deal.delete()
     return redirect('deal:index')
+
+@login_required(login_url='user:login')
+def deal_complete(request,deal_id):
+    deal = get_object_or_404(Deal, pk=deal_id)
+    if request.user != deal.author:
+        messages.error(request,'작성자만 변경할 수 있습니다')
+        return redirect('deal:deal_detail',deal_id=deal.id)
+    if deal.is_complete:
+        deal.is_complete=False
+    else:
+        deal.is_complete = True
+    deal.save()
+    return redirect('deal:deal_detail',deal_id=deal.id)

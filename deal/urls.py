@@ -10,5 +10,6 @@ urlpatterns = [
     path('deal/list/detail',views.deal_list_detail,name='deal_list_detail'),
     path('deal/edit/<int:deal_id>/',views.deal_edit,name='deal_edit'),
     path('deal/delete/<int:deal_id>/',views.deal_delete,name='deal_delete'),
+    path('deal/complete/<int:deal_id>/',views.deal_complete,name='deal_complete'),
 ]
 
