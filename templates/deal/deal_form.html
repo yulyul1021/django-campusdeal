@@ -4,10 +4,10 @@
     <div class ="row mt-5">
         <div class="col-sm-11 col-md-9 col-lg-7 mx-auto">
                 <h1 class="my-3 border-bottom pb-2">상품등록</h1>
-                <form method="post" class="post-form my-3" enctype="multipart/form-data">
+                <form method="post" class="post-form my-3" enctype="multipart/form-data" onsubmit="return filesize_check()">
                     <div class="form-group">
                         <label for="image">제품사진 : </label>
-                        <input type="file" class="form-control" name="image" id="image">
+                        <input type="file" class="form-control" name="image" id="image" accept=".jpg, .jpeg, .png">
                     </div>
 
                     {% csrf_token %}
@@ -17,4 +17,21 @@
         </div>
     </div>
 </div>
+<script>
+    function filesize_check() {
+        const fileInput = document.getElementById('image');
+        const file = fileInput.files[0];
+
+        if (file) {
+            const fileSize = file.size / 1024 / 1024; // 파일 크기를 MB로 변환
+            const maxSize = 5; // 최대 파일 크기 5MB
+
+            if (fileSize > maxSize) {
+                alert("파일 크기는 5MB를 초과할 수 없습니다.");
+                return false;
+            }
+        }
+        return true;
+    }
+</script>
 {% endblock %}

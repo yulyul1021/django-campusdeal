@@ -9,76 +9,109 @@
                     <div class="row">
                         <div class="col-md-4 text-center">
                             {% if user.icon %}
-                                <img src="{{ user.icon.url }}" alt="프로필 사진" class="img-fluid rounded-circle mb-3">
+                                <img src="{{ user.icon.url }}" alt="프로필 사진" class="img-fluid rounded-circle">
                             {% else %}
                                 <div class="text-secondary">프로필 사진이 없습니다.</div>
                             {% endif %}
                         </div>
                         <div class="col-md-8">
                             <h4 class="card-title">{{ user.nickname }}</h4>
-                            <p class="card-text">전화번호: {{ user.phone_number }}</p>
-                            <p class="card-text">이메일: {{ user.email }}</p>
+                            <p class="card-text mb-1">전화번호: {{ user.phone_number }}</p>
+                            <p class="card-text mb-1">이메일: {{ user.email }}</p>
                             {% if user.is_certified %}
-                            <p>이메일 인증 완료</p>
+                            <p class="card-text mb-1">이메일 인증 완료</p>
                             {% else %}
-                            <button type="button" class="btn btn-primary" onclick="location.href='{% url 'user:send_verification_email' %}'">이메일 인증</button>
+                            <p class="card-text mb-1">이메일 인증 미완료</p>
                             {% endif %}
                             <p class="card-text">거래 횟수: {{ user.deal_count }}</p>
+                            {% if not user.is_certified %}
+                            <button type="button" class="btn btn-primary" id="sendVerificationEmailBtn" onclick="location.href='{% url 'user:send_verification_email' %}' ">이메일 인증</button>
+                            {% endif %}
+                            <a href="#" class="btn btn-secondary float-right">정보 수정</a>
                         </div>
                     </div>
                 </div>
             </div>
             <!--해당 유저가 작성한 글-->
             <div class="container mt-4">
-            <p class="text-left my-4">작성글</p>
-            <div class="row">
-              <!-- Product Card 1 -->
-              <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card product-card">
-                  <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
-                  <div class="card-body">
-                    <h5 class="card-title">상품 제목 1</h5>
-                    <p class="card-text">₩10,000</p>
-                  </div>
-                </div>
-              </div>
+              <h4>작성글</h4>
+                {% if deal_list %}
+                <div class="row">
+                  {% for deal in deal_list %}
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card product-card">
+                          <div class="embed-responsive embed-responsive-4by3">
+                            {% if deal.image %}
+                            <img class="card-img-top" alt="Product Image" src="{{ deal.image.url }}" width="100">
+                            {% else%}
+                            <img class="card-img-top" alt="Product Image" src="/images/default/thumbnail.png" width="100">
+                            {% endif %}
+                          </div>
 
-              <!-- Product Card 2 -->
-              <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card product-card">
-                  <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
-                  <div class="card-body">
-                    <h5 class="card-title">상품 제목 2</h5>
-                    <p class="card-text">₩10,000</p>
-                  </div>
-                </div>
-              </div>
+                          <div class="card-body">
+                            <h5 class="card-title">{{ deal.subject }}</h5>
+                            <p class="card-text">₩{{ deal.price }}</p>
+                            {% if deal.is_complete %}
+                              <a class="btn btn-outline-dark" href="/deal/{{ deal.id }}/">거래완료</a>
+                            {% else %}
+                              <a class="btn btn-outline-dark" href="/deal/{{ deal.id }}/">구입하기</a>
+                            {% endif %}
+                          </div>
 
-              <!-- Product Card 3 -->
-              <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card product-card">
-                  <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
-                  <div class="card-body">
-                    <h5 class="card-title">상품 제목 3</h5>
-                    <p class="card-text">₩10,000</p>
-                  </div>
+                        </div>
+                    </div>
+                  {% endfor %}
                 </div>
-              </div>
-
-                <!-- Product Card 3 -->
-              <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="card product-card">
-                  <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
-                  <div class="card-body">
-                    <h5 class="card-title">상품 제목 3</h5>
-                    <p class="card-text">₩10,000</p>
-                  </div>
-                </div>
-              </div>
+              {% endif %}
             </div>
-          </div>
+
+            <!-- 페이징처리 시작 -->
+            <ul class="pagination justify-content-center">
+              <!-- 이전페이지 -->
+              {% if deal_list.has_previous %}
+              <li class="page-item">
+                <a class="page-link" data-page="{{ deal_list.previous_page_number }}"
+                href="javascript:void(0)">이전</a>
+              </li>
+              {% else %}
+              <li class="page-item disabled">
+                  <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+              </li>
+              {% endif %}
+              <!-- 페이지리스트 -->
+              {% for page_number in deal_list.paginator.page_range %}
+              {% if page_number == deal_list.number %}
+              <li class="page-item active" aria-current="page">
+                <a class="page-link" data-page="{{ page_number }}"
+                       href="javascript:void(0)">{{ page_number }}</a>
+              </li>
+              {% else %}
+              <li class="page-item">
+                <a class="page-link" data-page="{{ page_number }}"
+                href="javascript:void(0)">{{ page_number }}</a>
+              </li>
+              {% endif %}
+              {% endfor %}
+              <!-- 다음페이지 -->
+              {% if deal_list.has_next %}
+              <li class="page-item">
+                <a class="page-link" data-page="{{ deal_list.next_page_number }}"
+                href="javascript:void(0)">다음</a>
+              </li>
+              {% else %}
+              <li class="page-item disabled">
+                  <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+              </li>
+              {% endif %}
+            </ul>
+            <!-- 페이징처리 끝 -->
         </div>
         <!--해당 유저가 작성한 글 끝-->
     </div>
 </div>
+<script>
+    document.getElementById('sendVerificationEmailBtn').addEventListener('click', function() {
+        alert('인증 메일이 발송 되었습니다. 메일함을 확인해주세요.');
+    });
+</script>
 {% endblock %}

@@ -1,4 +1,8 @@
+import re
+
 from django import forms
+from django.core.exceptions import ValidationError
+
 from .models import User
 
 
@@ -8,7 +12,7 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'nickname', 'phone_number']
+        fields = ['username', 'nickname', 'phone_number', 'email']
         labels = {
             'password': '비밀번호',
             're_password': '비밀번호 확인',
@@ -17,6 +21,14 @@ class UserForm(forms.ModelForm):
             'phone_number': '휴대폰 번호',
             'email': '이메일'
         }
+
+    # def clean_password(self):
+    #     password = self.cleaned_data.get('password')
+    #     if len(password) < 10:
+    #         raise ValidationError('비밀번호는 10글자 이상이어야 합니다.')
+    #     if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+    #         raise ValidationError('비밀번호에는 1자 이상의 특수문자가 포함되어야 합니다.')
+    #     return password
 
     def clean_re_password(self):
         cd = self.cleaned_data
@@ -27,3 +39,5 @@ class UserForm(forms.ModelForm):
 
         return cd['re_password']
 
+
+# class UserEditForm(forms.ModelForm):

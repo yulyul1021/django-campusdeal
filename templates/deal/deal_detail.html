@@ -1,92 +1,90 @@
 {% extends 'base.html' %}
 {% block content %}
-    <!-- message 표시 -->
-    {% if messages %}
-    <div class = "alert alert-danger my-3" role="alert">
-        {% for message in messages %}
-            <strong>{{ message.tags }}</strong>
-            <ul><li>{{ message.message }}</li></ul>
-        {% endfor %}
-    </div>
-    {% endif %}
-<body>
-<!-- 내용 -->
-<article id="content" deal_id={{ deal_id }}>
-    <!-- 상품 -->
-    <div>
-        <div id="article-description">
-            <!--제목 -->
-            <div class="py-3" style="width:80%px;height:10%px; margin-left: 20%;" >
-                <p id="article-title" property="schema:name" style="font-size:40px; font-weight:bold;">{{deal.subject}}</p>
-                {% if deal.is_complete %}
-                    <p>거래완료</p>
-                {% endif %}
-                <hr style="width:80%; height:5px;">
-            </div>
-            <div class="py-3" style="width:80%px;height:50%px; margin-left: 20%;" >
-                <!-- 사진 -->
-                <div style="display:inline-block; float: left">
+<!-- message 표시 -->
+{% if messages %}
+<div class="alert alert-danger my-3" role="alert">
+    {% for message in messages %}
+    <strong>{{ message.tags }}</strong>
+    <ul><li>{{ message.message }}</li></ul>
+    {% endfor %}
+</div>
+{% endif %}
+<div class="container">
+    <article id="content" class="mt-4" deal_id="{{ deal_id }}">
+        <!-- 상품 제목 -->
+        <div class="text-center my-4">
+            {% if deal.is_complete %}
+            <p class="alert alert-success">거래완료</p>
+            {% endif %}
+        </div>
+        <!-- 상품 상세 정보 -->
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <!-- 이미지 처리 -->
+                <div class="img-fluid image-container mt-5" style="overflow: hidden;">
                     {% if deal.image %}
-                        <div style="width:50%; height:50%; float:left; margin-right:10%; margin-left:10%;">
-                            <img src="{{ deal.image.url }}">
-                        </div>
+                    <img src="{{ deal.image.url }}" alt="Product Image" style="width: 100%; height: 100%; object-fit: cover;">
                     {% endif %}
                 </div>
-                <!-- 상품정보 -->
-                <div style="display:inline-block;vertical-align:top; margin-left:10%">
-                    <div style="font-size:25px;">
-                        <ul style="line-height:50px;">
-                        <li id="article-price" property="schema:price" style="font-size: 30px; font-weight:bold;">{{ deal.price }}원</li>
-                        <li id="article-author" property="schema:author">{{deal.author}}</li>
-                        <li id="article-create_date" property="schema:date">
-                            등록일: {{deal.create_date}}<br>
-                            {% if deal.modify_date %}
-                                수정일: {{deal.modify_date}}
-                            {% endif %}
-                        </li>
-                        </ul>
-                    </div>
+            </div>
+            <div class="col-md-6">
+                <div class="product-info">
+                    <h1 id="article-title" property="schema:name">{{ deal.subject }}</h1>
+                    <p class="h4"><strong>가격: {{ deal.price }}원</strong></p>
+                    <p>등록일: {{ deal.create_date }}</p>
+                    {% if deal.modify_date %}
+                    <p>수정일: {{ deal.modify_date }}</p>
+                    {% endif %}
                     <div>
-                        {% if deal.author == request.user %}
-                            <!-- 수정삭제버튼 -->
-                            <div class="my-3" style="float:left;">
-                                {% if deal.is_complete %}
-                                   <a href ="javascript:void(0)" class="complete btn btn-primary"
-                                   data-uri = "{% url 'deal:deal_complete' deal.id %}">거래완료취소</a>
-                                {% else %}
-                                    <a href ="{% url 'deal:deal_edit' deal.id %}"
-                                       class="btn btn-primary">수정</a>
-                                    <a href ="javascript:void(0)" class="delete btn btn-primary"
-                                       data-uri = "{% url 'deal:deal_delete' deal.id %}">삭제</a>
-                                    <a href ="javascript:void(0)" class="complete btn btn-primary"
-                                       data-uri = "{% url 'deal:deal_complete' deal.id %}">거래완료</a>
-                                {% endif %}
-                            </div>
-                        {% else %}
-                            <!-- 찜구매버튼 -->
-                            <span class="control hidden">
-                                <div style="float:left;">
-                                    {% if deal.is_complete %}
-                                        <button class="btn btn-primary" stylte="margin-right:5px">거래완료</button>
+                        <!-- 판매자 정보 -->
+                        <div class="card my-2 mb-5">
+                        <div class="card-header">판매자 정보</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4 text-center">
+                                    {% if deal.author.icon %}
+                                        <img src="{{ user.icon.url }}" alt="프로필 사진" class="img-fluid rounded-circle">
                                     {% else %}
-                                        <a href="#" class="btn btn-primary" style="margin-right:5px">찜</a>
-                                        <a href="#" class="btn btn-primary" style="margin-right:5px">구매하기</a>
+                                        <div class="text-secondary">프로필 사진이 없습니다.</div>
                                     {% endif %}
                                 </div>
-                            </span>
+                                <div class="col-md-8">
+                                    <h4 class="card-title">
+                                        <a href="{% url 'user:user_info' pk=deal.author.pk %}">{{ deal.author.nickname }}</a>
+                                    </h4>
+                                    {% if deal.author.is_certified %}
+                                    <p>이메일 인증 완료</p>
+                                    {% else %}
+                                    <p>이메일 인증 미완료</p>
+                                    {% endif %}
+                                    <p class="card-text">거래 횟수: {{ deal.author.deal_count }}</p>
+                                    <a href="#" class="btn btn-primary">판매자와 채팅하기</a>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <!-- 판매자 정보 끝 -->
+                        {% if deal.author == request.user %}
+                        <div>
+                            <!-- 수정 및 삭제 버튼 -->
+                            <a href="{% url 'deal:deal_edit' deal.id %}" class="btn btn-primary">수정</a>
+                            <button class="delete btn btn-danger" data-uri="{% url 'deal:deal_delete' deal.id %}">삭제</button>
+                            {% if not deal.is_complete %}
+                            <button class="complete btn btn-success" data-uri="{% url 'deal:deal_complete' deal.id %}">거래완료</button>
+                            {% endif %}
+                        </div>
+                        {% else %}
                         {% endif %}
-                     </div>
+                    </div>
                 </div>
-                <hr style="width:80%; height:10%;">
-
-                <!-- 본문 -->
-                 <div id="article-detail">
-                     <p>{{ deal.content }}</p>
-                 </div>
             </div>
         </div>
-    </div>
-</article>
+        <!-- 본문 -->
+        <div class="product-description mt-4" style="white-space: pre-wrap; overflow-wrap: break-word;">
+            <p>{{ deal.content }}</p>
+        </div>
+    </article>
+</div>
 {% endblock %}
 </body>
 {% block script %}

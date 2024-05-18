@@ -10,32 +10,32 @@
             <form method="post" action="{% url 'user:signup' %}">
                 {% csrf_token %}
                 {% include "form_errors.html" %}
-                <div class="mb-3">
+                <div class="mb-2">
                   <label for="username"></label>
                   <input type="text" class="form-control" name="username" id="username" placeholder="학번"
                          value="{{ form.username.value|default_if_none:'' }}">
                 </div>
-                <div class="mb-3">
+                <div class="mb-2">
                     <label for="nickname"></label>
                     <input type="text" class="form-control" name="nickname" id="nickname" placeholder="닉네임"
                            value="{{ form.nickname.value|default_if_none:'' }}">
                 </div>
-                <div class="mb-3">
+                <div class="mb-2">
                     <label for="password"></label>
                     <input type="password" class="form-control" name="password" id="password" placeholder="비밀번호"
                            value="{{ form.password.value|default_if_none:'' }}">
                 </div>
-                <div class="mb-3">
+                <div class="mb-2">
                     <label for="re_password"></label>
                     <input type="password" class="form-control" name="re_password" id="re_password" placeholder="비밀번호 확인"
                            value="{{ form.re_password.value|default_if_none:'' }}">
                 </div>
-                <div class="mb-3">
+                <div class="mb-2">
                     <label for="phone_number"></label>
                     <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="01012345678"
                            value="{{ form.phone_number.value|default_if_none:'' }}">
                 </div>
-                <div class="mb-3">
+                <div class="mb-2">
                     <label for="email"></label>
                     <input type="email" class="form-control" name="email" id="email" placeholder="이메일"
                            value="{{ form.email.value|default_if_none:'' }}">

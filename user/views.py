@@ -1,10 +1,26 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import user_passes_test, login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 from deal.models import Deal
 from .forms import UserForm
 from .models import User
 
+
+def anonymous_required(function=None, redirect_url=None):
+    if not redirect_url:
+        redirect_url = '/'  # 로그인한 사용자를 리디렉션할 URL
+
+    actual_decorator = user_passes_test(
+        lambda user: not user.is_authenticated,
+        login_url=redirect_url
+    )
+    if function:
+        return actual_decorator(function)
+    return actual_decorator
+
+
+@anonymous_required()
 def signup(request):
     if request.method == "POST":
         form = UserForm(request.POST)
@@ -24,11 +40,12 @@ def signup(request):
     return render(request, 'user/signup.html', {'form': form})
 
 
+@login_required(login_url='user:login')
 def myinfo(request):
-    deals = Deal.objects.filter(author=request.user)
+    deal_list = Deal.objects.filter(author=request.user)
     context = {
         'user': request.user,
-        'deals': deals
+        'deal_list': deal_list
     }
     return render(request, 'user/myinfo.html', context)
 
@@ -61,8 +78,9 @@ def send_verification_email(request):
     )
     subject = 'Activate your account'
     message = f'Please click the link to activate your account: {link}'
-    send_mail(subject, message, 'yulyul102102@example.com', [user.email])
+    send_mail(subject, message, 'admin@example.com', [user.email])
     return redirect('user:myinfo')
+
 
 def activate_user(request, uidb64, token):
     try:

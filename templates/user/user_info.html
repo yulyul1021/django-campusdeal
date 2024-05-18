@@ -9,7 +9,7 @@
                     <div class="row">
                         <div class="col-md-4 text-center">
                             {% if user.icon %}
-                                <img src="{{ user.icon.url }}" alt="프로필 사진" class="img-fluid rounded-circle mb-3">
+                                <img src="{{ user.icon.url }}" alt="프로필 사진" class="img-fluid rounded-circle">
                             {% else %}
                                 <div class="text-secondary">프로필 사진이 없습니다.</div>
                             {% endif %}
@@ -17,26 +17,41 @@
                         <div class="col-md-8">
                             <h4 class="card-title">{{ user.nickname }}</h4>
                             {% if user.is_certified %}
-                            <p>이메일 인증 완료</p>
+                            <p class="card-text mb-1">이메일 인증 완료</p>
+                            {% else %}
+                            <p class="card-text mb-1">이메일 인증 미완료</p>
                             {% endif %}
-                            <p class="card-text">거래 횟수: {{ user.deal_count }}</p>
+                            <p class="card-text mb-1">거래 횟수: {{ user.deal_count }}</p>
+                            <a href="#" class="btn btn-primary">채팅하기</a>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- 해당 유저가 작성한 글 -->
             <div class="container mt-4">
-                <p class="text-left my-4">작성글</p>
+                <h4>작성글</h4>
                 <div class="row">
                     <!-- Product Cards -->
                     {% for deal in deals %}
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="card product-card">
-                            <img src="{{ deal.image_url }}" class="card-img-top" alt="Product Image">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ deal.title }}</h5>
-                                <p class="card-text">₩{{ deal.price }}</p>
-                            </div>
+                            <div class="embed-responsive embed-responsive-4by3">
+                            {% if deal.image %}
+                            <img class="card-img-top" alt="Product Image" src="{{ deal.image.url }}" width="100">
+                            {% else%}
+                            <img class="card-img-top" alt="Product Image" src="/images/default/thumbnail.png" width="100">
+                            {% endif %}
+                          </div>
+
+                          <div class="card-body">
+                            <h5 class="card-title">{{ deal.subject }}</h5>
+                            <p class="card-text">₩{{ deal.price }}</p>
+                            {% if deal.is_complete %}
+                              <a class="btn btn-outline-dark" href="/deal/{{ deal.id }}/">거래완료</a>
+                            {% else %}
+                              <a class="btn btn-outline-dark" href="/deal/{{ deal.id }}/">상세</a>
+                            {% endif %}
+                          </div>
                         </div>
                     </div>
                     {% endfor %}
