@@ -15,7 +15,7 @@
                     <div class="message" id="chatContainer" data-room-name="{{ room_name }}">
                       <!-- received messages 시작 -->
                         {% for i in messages %}
-                            {% if i.sender != user %}
+                            {% if i.sender != username %}
                                 <strong>{{i.sender}}</strong>
                                 <div class="receive">
                                     <p style="color: #000;"> {{i.message}}</p>
@@ -59,7 +59,7 @@
                 JSON.stringify({
                     'message': message,
                     'room_name': ${roomName},
-                    'sender': '{{user}}',
+                    'sender': '{{username}}',
                 })
             )
         });
@@ -69,12 +69,12 @@
             var sender = messageData['sender'];
             var message = messageData['message'];
 
-            if (sender == '{{user}}'){
+            if (sender == '{{username}}'){
                 document.getElementById('msg').value = '';
             }
 
             var messageDiv = document.querySelector('.message');
-            if (sender != '{{user}}') {
+            if (sender != '{{username}}') {
                 messageDiv.innerHTML += '<strong>' + sender + '</strong><div class="receive"><p style="color: #000;">' + message + '</p></div>';
             } else {
                 messageDiv.innerHTML += '<div class="send"><p style="color: #000;">' + message + '</p></div>';

@@ -23,7 +23,7 @@ def create_room(request):
             new_room = Room(room_name=room)
             new_room.save()
             return redirect('room', room_name=room, username=username)
-    return render(request, 'chat/room.html')
+    return render(request, 'chat/room.html', context={'user': request.user})
 
 
 def message_view(request, room_name, username):
@@ -39,7 +39,8 @@ def message_view(request, room_name, username):
 
     context = {
         "messages": get_messages,
-        "user": username,
+        "username": username,
+        "user": request.user,
         "room_name": room_name,
     }
     return render(request, 'chat/room.html', context)
