@@ -7,8 +7,6 @@
 - 캠퍼스딜은 교내 현장거래 서비스를 제공하는 웹사이트입니다.
 - 누구나 쉽게 교내에서 상품을 직거래할 수 있습니다.
 
-***<목차>***
-
 ## 1. 개발환경
 
 - Front: HTML, CSS, Javascript, bootstrap
@@ -105,7 +103,8 @@
         -공통: 네비게이션 바
         
     - 기능
-        - DB설계, 채팅 기능, 이메일 인증 기능
+  
+      -DB설계, 채팅 기능, 이메일 인증 기능
         
 
 - **선혜린🐥**
@@ -168,24 +167,25 @@
 ![초기화면](https://github.com/yulyul1021/django-campusdeal/assets/105877750/5861897e-6ad4-4280-ad04-7e2ff3279b60)
 
 1. **네비게이션 바**
-    
-![네비게이션바1](https://github.com/yulyul1021/django-campusdeal/assets/105877750/2d6f446f-f349-46f3-ace0-5ae16ad4ff18)
+
+   ![네비게이션바1](https://github.com/yulyul1021/django-campusdeal/assets/105877750/2d6f446f-f349-46f3-ace0-5ae16ad4ff18)
     
     - 사용자가 로그인을 하지 않았을 경우 → 회원가입, 로그인, 글쓰기를 클릭할 수 있으나, 글쓰기를 클릭하면 로그인 페이지로 이동합니다.
     
-![네비게이션바2](https://github.com/yulyul1021/django-campusdeal/assets/105877750/2809ef1d-2cd8-4fca-a052-7a61f2a20ac5)
+    ![네비게이션바2](https://github.com/yulyul1021/django-campusdeal/assets/105877750/2809ef1d-2cd8-4fca-a052-7a61f2a20ac5)
     
     - 사용자가 로그인을 하였을 경우 → 로그아웃, 글쓰기, Chat, My 페이지로 이동할 수 있도록 나타납니다.
-2. **검색 창**
     
-![검색창](https://github.com/yulyul1021/django-campusdeal/assets/105877750/fb38192c-ed83-48f9-a4bb-35baba4e5bff)
+2. **검색 창**
+
+   ![검색창](https://github.com/yulyul1021/django-campusdeal/assets/105877750/fb38192c-ed83-48f9-a4bb-35baba4e5bff)
     
     - 화면의 중앙에 있는 검색 창으로 현재 등록되어 있는 게시글들을 검색할 수 있습니다.
     - 검색은 입력된 단어가 게시글 제목, 내용, 저자 중 하나라도 포함되어 있다면 검색의 결과로 나타납니다.
     - 또한 최신순, 오래된 순, 가격순, 사진있는 순, 거래 안 된 순 등으로 정렬할 수 있습니다.
-3. **게시글**
-    
-![게시글](https://github.com/yulyul1021/django-campusdeal/assets/105877750/ac0d9002-e6f6-45c8-9faf-8a1dcddf5480)
+4. **게시글**
+
+   ![게시글](https://github.com/yulyul1021/django-campusdeal/assets/105877750/ac0d9002-e6f6-45c8-9faf-8a1dcddf5480)
     
     - 현재 등록된 게시글들이 카드 형태로 나타납니다.
     - 상세 버튼 클릭 시, 상품 상세 페이지로 이동합니다.
@@ -194,17 +194,18 @@
 ### -회원가입, 로그인
 
 1. **회원 가입**
-    
-![회원가입](https://github.com/yulyul1021/django-campusdeal/assets/105877750/8381857c-9af0-44ac-8fb5-3cb93dff1c0c)
+
+   ![회원가입](https://github.com/yulyul1021/django-campusdeal/assets/105877750/8381857c-9af0-44ac-8fb5-3cb93dff1c0c)
     
     - 학번, 닉네임, 비밀번호, 비밀번호 확인, 전화번호, 이메일 입력 창이 나옵니다.
     - 학번은 숫자로만 입력할 수 있으며, 중복이 허용되지 않습니다.
     - 비밀번호와 비밀번호 확인에 입력된 값이 동일하지 않을 시 경고 폼이 나옵니다.
     - 위의 6개의 입력 창을 채우지 않을 시 경고 폼이 나옵니다.
     - 6개의 입력 창을 올바르게 채우고 회원가입 버튼을 누르면 자동으로 로그인이 되는 동시에 메인 페이지로 이동합니다.
-2. **로그인**
-    
-![로그인](https://github.com/yulyul1021/django-campusdeal/assets/105877750/47994209-3a98-48af-9e59-f16c7dae478f)
+
+3. **로그인**
+
+   ![로그인](https://github.com/yulyul1021/django-campusdeal/assets/105877750/47994209-3a98-48af-9e59-f16c7dae478f)
     
     - 학번과 비밀번호 입력 창이 나오고, 회원가입을 하지 않았을 경우를 대비해 회원가입 페이지로 갈 수 있는 링크가 존재합니다.
     - 올바른 학번과 비밀번호가 아닐 시 경고 폼이 나오며 로그인이 되지 않습니다.
@@ -213,45 +214,44 @@
 ### -내 정보 / 타인 정보
 
 1. **내 정보 조회**
-    
-![내정보조회](https://github.com/yulyul1021/django-campusdeal/assets/105877750/78205a1a-2ad1-40c6-933d-2423711dbc6c)
+
+   ![내정보조회](https://github.com/yulyul1021/django-campusdeal/assets/105877750/78205a1a-2ad1-40c6-933d-2423711dbc6c)
     
     - 자신의 정보와 올린 게시물을 확인할 수 있습니다.
     - 최초 1회 이메일 인증이 가능하며 등록된 이메일로 인증 링크가 발송됩니다.
-        
-![이메일인증](https://github.com/yulyul1021/django-campusdeal/assets/105877750/2573f0ee-d4a4-4956-8c83-8b38949c3453)
-        
-![계정활성화](https://github.com/yulyul1021/django-campusdeal/assets/105877750/0fbbe1ab-23f4-4ba6-81a8-38f8c2bb4d25)
 
-![이메일인증내정보](https://github.com/yulyul1021/django-campusdeal/assets/105877750/72d88e03-9e40-4c62-8ddd-43c55519cbf9)
+      ![이메일인증](https://github.com/yulyul1021/django-campusdeal/assets/105877750/2573f0ee-d4a4-4956-8c83-8b38949c3453)
+
+      ![계정활성화](https://github.com/yulyul1021/django-campusdeal/assets/105877750/0fbbe1ab-23f4-4ba6-81a8-38f8c2bb4d25)
+      ![이메일인증내정보](https://github.com/yulyul1021/django-campusdeal/assets/105877750/72d88e03-9e40-4c62-8ddd-43c55519cbf9)
         
 2. **타인 정보 조회**
-    
-![타인정보](https://github.com/yulyul1021/django-campusdeal/assets/105877750/721aa5f5-2c49-49af-993c-84ceab670eea)
+
+   ![타인정보](https://github.com/yulyul1021/django-campusdeal/assets/105877750/721aa5f5-2c49-49af-993c-84ceab670eea)
     
     - 타인의 정보를 확인할 수 있는 페이지입니다.
     - 사용자가 올린 게시물과 정보를 확인할 수 있습니다.
     - 사용자와 채팅하기 버튼 클릭 시, 채팅 페이지로 이동합니다.
 
 ### -채팅
+    ![채팅1](https://github.com/yulyul1021/django-campusdeal/assets/105877750/341e8642-22bc-46f4-b703-77383418b71e)
+    ![채팅2](https://github.com/yulyul1021/django-campusdeal/assets/105877750/70fdd064-101b-4265-9c08-3375e04897be)
 
-![채팅1](https://github.com/yulyul1021/django-campusdeal/assets/105877750/341e8642-22bc-46f4-b703-77383418b71e)
-![채팅2](https://github.com/yulyul1021/django-campusdeal/assets/105877750/70fdd064-101b-4265-9c08-3375e04897be)
-
-- 판매자와 채팅할 수 있는 페이지입니다.
-- 메세지를 입력 후 전송 버튼 클릭 시 메세지가 전송됩니다.
+    - 판매자와 채팅할 수 있는 페이지입니다.
+    - 메세지를 입력 후 전송 버튼 클릭 시 메세지가 전송됩니다.
 
 ### -게시글
 
 1. **상품 등록**
-    
-![상품등록](https://github.com/yulyul1021/django-campusdeal/assets/105877750/17b2d84b-22c4-416c-8653-c5ad1fbac758)
+
+   ![상품등록](https://github.com/yulyul1021/django-campusdeal/assets/105877750/17b2d84b-22c4-416c-8653-c5ad1fbac758)
     
     - 상품명, 가격, 상품 설명은 필수적으로 입력해야 하며 미입력시 오류 메세지가 나타납니다.
     - 상품 가격은 숫자로만 입력할 수 있습니다.
     - 상품 이미지를 업로드하지 않아도 상품 등록이 가능합니다.
     - 상품 등록이 완료되면 메인 화면으로 이동합니다.
-2. **상품 게시물 상세**
+      
+3. **상품 게시물 상세**
     
    ![상품게시물상세](https://github.com/yulyul1021/django-campusdeal/assets/105877750/5746c43a-ab59-4d72-9d4f-db3c731287b9)
     
@@ -266,10 +266,12 @@
     - 판매자 정보의 판매자 이름을 누르면 판매자 정보를 확인할 수 있는 페이지로 이동합니다.
     - 판매자와 채팅하기 버튼 클릭 시, 채팅 페이지로 이동합니다.
     - 작성자는 수정, 삭제, 거래완료 버튼을 누를 수 있습니다.
+      
 4. **상품 게시물 수정 및 삭제**
     - 게시물 작성자만 수정 및 삭제가 가능합니다.
     - 게시물 수정 시 게시물 등록 페이지로 이동하고 수정 후 재등록됩니다.
-    - 삭제 버튼 클릭 시, 삭제를 확인하는 경고창이 뜹니다.
+    - 삭제 버튼 클릭 시, 삭제를 확인하는 경고창이 뜹니다
+      
 5. **상품 게시물 거래완료**
     - 게시물 작성자만 거래완료 버튼 기능이 활성화됩니다.
     - 거래완료 버튼 클릭 시, 거래완료를 확인하는 경고창이 뜹니다.
